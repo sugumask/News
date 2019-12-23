@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News_Feed</title>
+    <link rel="icon" href="search.JPG">
+    <style>
+        #clicks {
+            font-size: 20px;
+            color: #f1f1f1;
+            background-color: #333;
+            /* padding: 10px 30px; */
+            height: 45px;
+            border: none;
+            font-family: "Segoe UI", Arial, sans-serif;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+        
+        .subnav2 {
+            font-size: 20px;
+            color: white;
+            background-color: rgb(77, 190, 77);
+            font-weight: 500;
+            /* padding: 10px 30px; */
+            height: 38px;
+            width: 90px;
+            border-radius: 10px;
+            border: none;
+            font-family: "Segoe UI", Arial, sans-serif;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+        
+        .title {
+            font-size: 25px;
+            color: red;
+            font-weight: 600;
+            letter-spacing: normal;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        
+        #clicks:hover {
+            background-color: #1ca1fa;
+        }
+        
+        .photo {
+            width: 100%;
+            height: 50%;
+        }
+        
+        .photo:hover {
+            transform: scale(1.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .gifimage {
+            margin-left: 40%;
+            margin-top: 10%;
+        }
+        
+        .design1 {
+            width: 100%;
+            background-color: lightgray;
+        }
+        
+        #design2 {
+            display: inline-block;
+            box-shadow: 0 0 7px rgba(116, 114, 114, 0.5);
+            width: 20%;
+            opacity: 0.8;
+            text-align: justify;
+            margin: 25px;
+            background-color: aliceblue;
+            height: 340px;
+            overflow: hidden;
+            border-radius: 7px;
+            position: relative;
+        }
+        
+        #design2:hover {
+            opacity: 1;
+            cursor: pointer;
+            box-shadow: 0 0 11px rgba(116, 114, 114, 0.74);
+        }
+        
+        #design3 {
+            margin-block-start: 3px;
+            margin-block-end: 5px;
+            color: black;
+            font-size: 14px;
+            font-family: cursive;
+            font-weight: bold;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .content {
+            display: block;
+            color: black;
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: left;
+            padding-left: 10px;
+            padding-bottom: 5px;
+            height: 45px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        #moments {
+            text-align: left;
+            font-style: italic;
+            font-size: 14px;
+            font-weight: bold;
+            color: gray;
+            bottom: 5px;
+            left: 10px;
+            position: absolute;
+        }
+        
+        #fixing {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            background-color: #333;
+            letter-spacing: 10px;
+            padding: 5px;
+        }
+        
+        .nav1,
+        .nav2,
+        .nav3 {
+            display: inline;
+        }
+        
+        .nav2 {
+            margin-left: 2%;
+        }
+        
+        .nav3 {
+            float: right;
+            margin-right: 10px;
+        }
+        
+        #search {
+            padding-bottom: 3px;
+            width: 30%;
+            margin-right: 20px;
+            padding-top: 10px;
+            border: none;
+            border-radius: 3px;
+            box-shadow: 0 0 7px rgba(116, 114, 114, 0.5);
+            font-size: 20px;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body style="margin: inherit;">
+
+    <div id="main" style="margin-top: 35px;"></div>
+    <div id='fixing'>
+        <div class="nav1">
+            <img src=".\microphone.png" style="width: 30px; height: 22px; margin-left: 5%;">
+            <span class="title">NEWS FEED</span>
+        </div>
+        <div class="nav2">
+            <input type="text" id="search">
+            <button onclick="scan()" value="" class="subnav2">SEARCH</button>
+        </div>
+        <div class="nav3">
+            <button id='clicks' onclick=populateNews(this.value) value="cinema">CINEMA</button>
+            <button id='clicks' onclick=populateNews(this.value) value="politics">POLITICS</button>
+            <button id='clicks' onclick=populateNews(this.value) value="sports">SPORTS</button>
+            <button id='clicks' onclick=populateNews(this.value) value="tamil">TAMIL</button>
+            <button id='clicks' onclick=populateNews(this.value) value="india">INDIA</button>
+        </div>
+    </div>
+    <script>
+        function scan() {
+            let searchValue = document.getElementById('search').value;
+            populateNews(searchValue);
+        }
+
+        function populateNews(value) {
+            //document.getElementById('search').value = '';
+            let mainDoc = document.getElementById('main');
+            mainDoc.innerHTML = '';
+            let image = document.createElement('img');
+            image.className = 'gifimage';
+            image.src = "https://media1.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=790b76111cc4e63b5a4f92749f6e87c524d41ac98131ddaa&rid=giphy.gif";
+            //mainDoc.innerHTML = 'Loading ' + value + ' content... Please wait...';
+            mainDoc.appendChild(image);
+            let apiUrl = "https://newsapi.org/v2/everything?q=" + value + "&apiKey=e8a2effb70bf42309142b02929ad533f"
+            fetch(apiUrl)
+                .then(response => response.json()).then(res => {
+                    let test = document.createElement('div');
+                    test.className = 'design1';
+                    //console.log(res);
+                    if (res && res.articles && res.articles.length > 0) {
+                        // console.log(res);
+                        res.articles.forEach(arr1 => {
+                            //console.log(res);
+                            let ext = document.createElement('a');
+                            ext.id = 'external';
+                            ext.href = arr1.url;
+                            ext.target = '_blank';
+                            let test2 = document.createElement('div');
+                            test2.id = 'design2';
+                            let img1 = document.createElement('img');
+                            img1.className = 'photo';
+                            let heading = document.createElement('p');
+                            heading.id = 'design3';
+                            let txt = document.createTextNode(arr1.description);
+                            let inline = document.createElement('span');
+                            inline.className = 'content';
+                            let inline1 = document.createElement('span');
+                            inline1.id = 'moments';
+                            img1.src = arr1.urlToImage;
+                            heading.innerText = arr1.title;
+                            txt.value = arr1.description;
+                            inline1.innerText = arr1.publishedAt;
+                            inline.appendChild(txt);
+                            test2.appendChild(img1);
+                            test2.appendChild(heading);
+                            test2.appendChild(inline);
+                            test2.appendChild(inline1);
+                            ext.appendChild(test2);
+                            test.appendChild(ext);
+                            //console.log(res);
+                        });
+                    }
+                    mainDoc.innerHTML = null;
+                    mainDoc.appendChild(test);
+                })
+        }
+        populateNews('google');
+    </script>
+
+</body>
+
+</html>
